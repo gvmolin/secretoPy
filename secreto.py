@@ -20,7 +20,7 @@ class Texto:
         datetimeNow = datetime.datetime.now()
         dataStr = str(datetimeNow.day) + "/" + str(datetimeNow.month) + "/" + str(datetimeNow.year)
         horaStr = str(datetimeNow.hour) +":"+str(datetimeNow.minute)
-        header = "\n\n ---------[" + str(dataStr) + "|" + str(horaStr) + "] ---------\n"
+        header = "\n\n --------- [" + str(dataStr) + "|" + str(horaStr) + "] ---------\n"
         self.texto += header
     
     def onKeyPress(self, key):
@@ -42,20 +42,20 @@ class Texto:
         return
     
     def treatChar(self, char):
-        if(len(char) == 1):
-            return char
-        else:
-            treatedChar = ""
-            
+        treatedChar = ""
+        if(self.lastKey == "backspace" and char != "backspace"):
+            treatedChar += "[<-" + str(self.sameKeyCounter) + "x]"
 
+        if(len(char) == 1):
+            treatedChar += char
+            return treatedChar
+        else:
             if(char == "space"):
                 treatedChar += " "
             elif(char == "esc"):
                 treatedChar += "[esc]"
             # elif(char == "enter"):
             #     return "[enter]"
-            elif(self.lastKey == "backspace" and char != "backspace"):
-                treatedChar += "[<-" + str(self.sameKeyCounter) + "x]"
             elif(char == ("rshift" or "lshift" or "shift")):
                 treatedChar += "[shift]"
             elif(char == ("enter")):
@@ -65,8 +65,6 @@ class Texto:
     def resetTimer(self):
         self.timer = 0
         return
-    
-        
             
     
 texto = Texto()
