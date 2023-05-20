@@ -2,7 +2,7 @@ import time
 import datetime
 
 class Texto:
-    def __init__(self) -> None:
+    def __init__(self, config) -> None:
         datetimeNow = datetime.datetime.now()
 
         self.nomeDoArquivo = str(datetimeNow.day) + "-" + str(datetimeNow.month) + "-" + str(datetimeNow.year) + "__" + str(datetimeNow.hour) + "-" + str(datetimeNow.minute) + ".txt"
@@ -10,20 +10,22 @@ class Texto:
         self.initialTime = time.time()
         self.lastKey = ""
         self.sameKeyCounter = 1
+        self.config = config
+        config.setParam("LASTUPLOAD", self.nomeDoArquivo)
 
-        arquivo = open(self.nomeDoArquivo, "w")
+        arquivo = open(config.tempPath + self.nomeDoArquivo, "w")
         arquivo.close()
         self.setHeader()
         return
     
     def setTexto(self, str):
         # conteudo
-        with open(self.nomeDoArquivo, 'r') as arquivoR:
+        with open(self.config.tempPath + self.nomeDoArquivo, 'r') as arquivoR:
             conteudo = arquivoR.read()
             print(conteudo)
             arquivoR.close()
 
-        with open(self.nomeDoArquivo, 'w') as arquivoW:
+        with open(self.config.tempPath + self.nomeDoArquivo, 'w') as arquivoW:
             arquivoW.write(conteudo + str)
             arquivoW.close()
 
