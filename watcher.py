@@ -1,4 +1,3 @@
-import keyboard
 import time
 import datetime
 
@@ -86,7 +85,3 @@ class Texto:
         return
     
             
-    
-texto = Texto()
-keyboard.on_press(texto.onKeyPress)
-keyboard.wait('esc')
