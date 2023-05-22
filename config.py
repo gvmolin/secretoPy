@@ -1,13 +1,22 @@
 import os
+import datetime
 
 class Config:
     def __init__(self):
+        datetimeNow = datetime.datetime.now()
         self.lastFile = ""
         self.tempPath = "./temp/"
+        self.nomeDaPasta = str(datetimeNow.day) + "-" + str(datetimeNow.month) + "-" + str(datetimeNow.year) + "__" + str(datetimeNow.hour) + "-" + str(datetimeNow.minute) + "/"
+        self.dataTarget = self.tempPath + self.nomeDaPasta + "data.txt"
+        
         try:
             configFile = open("./config.txt", "r")
-            if(not os.path.exists("temp")):
-                os.mkdir(self.path)
+            if(not os.path.exists(self.tempPath)):
+                os.mkdir(self.tempPath)
+            
+            if(os.path.exists(self.tempPath)):
+                os.mkdir(self.tempPath + self.nomeDaPasta)
+                open(self.dataTarget, 'w')
                 
             if(configFile):
                 configLines = configFile.readlines()
