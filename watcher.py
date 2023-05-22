@@ -45,9 +45,6 @@ class Texto:
             self.setHeader()
             self.initialTime = time.time()
 
-        if(key.name == "enter"):
-            print(self.texto)
-
         self.lastKey = key.name
         return
     
@@ -64,11 +61,9 @@ class Texto:
                 treatedChar += " "
             elif(char == "esc"):
                 treatedChar += "[esc]"
-            # elif(char == "enter"):
-            #     return "[enter]"
             elif(char == ("rshift" or "lshift" or "shift")):
                 treatedChar += "[shift]"
-            elif(char == ("enter")):
+            elif(char == "enter"):
                 treatedChar += "[enter]\n"
             return treatedChar
     
